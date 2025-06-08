@@ -1,0 +1,27 @@
+< THE SYMBOL TABLE >  step2.exe  --  emu8086 assembler version: 4.08 
+===================================================================================================
+Name                     	Offset    	Size      	Type      	Segment   
+===================================================================================================
+DATA                     	00000     	-5        	SEGMENT   	(ITSELF)  
+CODE                     	00000     	-5        	SEGMENT   	(ITSELF)  
+START                    	00000     	-1        	LABEL     	CODE      
+MAIN_LOOP                	0000B     	-1        	LABEL     	CODE      
+LED_GREEN                	00037     	-1        	LABEL     	CODE      
+LED_YELLOW               	0003F     	-1        	LABEL     	CODE      
+LED_RED                  	00047     	-1        	LABEL     	CODE      
+SAFETY_CHECK             	0004D     	-1        	LABEL     	CODE      
+SAFE                     	0005C     	-1        	LABEL     	CODE      
+LOOP_EXIT                	00062     	-1        	LABEL     	CODE      
+COUNT_DOOR               	00067     	-1        	NEAR      	CODE      
+COUNT_LOOP               	00070     	-1        	LABEL     	CODE      
+SKIP                     	00076     	-1        	LABEL     	CODE      
+SAFETY                   	0007B     	-1        	NEAR      	CODE      
+NOT_SAFE_LABEL           	0008E     	-1        	LABEL     	CODE      
+TEMP_CHECK               	00091     	-1        	NEAR      	CODE      
+NO_TEMP_ALERT            	0009E     	-1        	LABEL     	CODE      
+DELAY                    	000A1     	-1        	NEAR      	CODE      
+DELAY_LOOP               	000A4     	-1        	LABEL     	CODE      
+===================================================================================================
+[ 6/8/2025  --  9:08:50 PM ] 
+< END >
+ 

@@ -1,0 +1,29 @@
+< THE SYMBOL TABLE >  step4.exe  --  emu8086 assembler version: 4.08 
+===================================================================================================
+Name                     	Offset    	Size      	Type      	Segment   
+===================================================================================================
+DATA                     	00000     	-5        	SEGMENT   	(ITSELF)  
+CODE                     	00000     	-5        	SEGMENT   	(ITSELF)  
+START                    	00000     	-1        	LABEL     	CODE      
+MAIN_LOOP                	0000B     	-1        	LABEL     	CODE      
+SELECT_8255_1            	0001D     	-1        	LABEL     	CODE      
+CONTINUE_MAIN            	00023     	-1        	LABEL     	CODE      
+LED_GREEN                	00044     	-1        	LABEL     	CODE      
+LED_YELLOW               	0004C     	-1        	LABEL     	CODE      
+LED_RED                  	00054     	-1        	LABEL     	CODE      
+SAFETY_CHECK             	0005A     	-1        	LABEL     	CODE      
+SAFE                     	00069     	-1        	LABEL     	CODE      
+LOOP_EXIT                	0006F     	-1        	LABEL     	CODE      
+COUNT_DOOR               	00074     	-1        	NEAR      	CODE      
+COUNT_LOOP               	0007D     	-1        	LABEL     	CODE      
+SKIP                     	00083     	-1        	LABEL     	CODE      
+SAFETY                   	00088     	-1        	NEAR      	CODE      
+NOT_SAFE_LABEL           	0009B     	-1        	LABEL     	CODE      
+TEMP_CHECK               	0009E     	-1        	NEAR      	CODE      
+NO_TEMP_ALERT            	000AB     	-1        	LABEL     	CODE      
+DELAY                    	000AE     	-1        	NEAR      	CODE      
+DELAY_LOOP               	000B1     	-1        	LABEL     	CODE      
+===================================================================================================
+[ 6/8/2025  --  9:24:26 PM ] 
+< END >
+ 

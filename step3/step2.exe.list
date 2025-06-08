@@ -1,0 +1,188 @@
+EMU8086 GENERATED LISTING. MACHINE CODE <- SOURCE.
+ 
+step2.exe -- emu8086 assembler version: 4.08  
+ 
+[ 6/8/2025  --  9:08:50 PM ] 
+ 
+===================================================================================================
+[LINE]     LOC: MACHINE CODE                          SOURCE
+===================================================================================================
+ 
+[   1]        :                                       DATA SEGMENT
+[   2]        :                                       PORTA     EQU 80H
+[   3]        :                                       PORTB     EQU 82H
+[   4]        :                                       PORTC     EQU 84H
+[   5]        :                                       PORT_CON  EQU 86H
+[   6]        :                                       DATA ENDS
+[   7]        :                                       
+[   8]        :                                       CODE SEGMENT
+[   9]        :                                       ASSUME CS:CODE, DS:DATA
+[  10]        :                                       
+[  11]    0000:                                       START:
+[  12]    0000: B8 00 00                              MOV AX, DATA
+[  13]    0003: 8E D8                                 MOV DS, AX
+[  14]        :                                       
+[  15]    0005: BA 86 00                              MOV DX, PORT_CON
+[  16]    0008: B0 82                                 MOV AL, 10000010B
+[  17]    000A: EE                                    OUT DX, AL
+[  18]        :                                       
+[  19]    000B:                                       MAIN_LOOP:
+[  20]        :                                       ; ÊäÙíã Q3 ÈÑÇí ÇäÊÎÇÈ 8255 ãæÑÏ äÙÑ
+[  21]    000B: E4 84                                 IN AL, PORTC
+[  22]    000D: 24 F7                                 AND AL, 11110111B    ; Q3=0 (ÇäÊÎÇÈ 8255 Çæá)
+[  23]        :                                       ;OR AL, 00001000B    ; Q3=1 (ÇäÊÎÇÈ 8255 Ïæã)
+[  24]    000F: E6 84                                 OUT PORTC, AL
+[  25]        :                                       
+[  26]    0011: E8 53 00                              CALL COUNT_DOOR
+[  27]    0014: 8A D8                                 MOV BL, AL
+[  28]        :                                       
+[  29]    0016: E4 80                                 IN AL, PORTA
+[  30]    0018: 24 F0                                 AND AL, 11110000B
+[  31]    001A: 8A E0                                 MOV AH, AL
+[  32]        :                                       
+[  33]    001C: 8A C3                                 MOV AL, BL
+[  34]    001E: 24 0F                                 AND AL, 00001111B
+[  35]    0020: 0A C4                                 OR AL, AH
+[  36]    0022: E6 80                                 OUT PORTA, AL
+[  37]        :                                       
+[  38]    0024: E8 6A 00                              CALL TEMP_CHECK
+[  39]    0027: 0C 10                                 OR AL, 00010000B
+[  40]    0029: E6 80                                 OUT PORTA, AL
+[  41]        :                                       
+[  42]    002B: 80 FB 06                              CMP BL, 6
+[  43]    002E: 74 07                                 JE LED_GREEN
+[  44]    0030: 80 FB 03                              CMP BL, 3
+[  45]    0033: 73 0A                                 JAE LED_YELLOW
+[  46]    0035: EB 10                                 JMP LED_RED
+[  47]        :                                       
+[  48]    0037:                                       LED_GREEN:
+[  49]    0037: E4 80                                 IN AL, PORTA
+[  50]    0039: 0C 40                                 OR AL, 01000000B
+[  51]    003B: E6 80                                 OUT PORTA, AL
+[  52]    003D: EB 0E                                 JMP SAFETY_CHECK
+[  53]        :                                       
+[  54]    003F:                                       LED_YELLOW:
+[  55]    003F: E4 80                                 IN AL, PORTA
+[  56]    0041: 0C 80                                 OR AL, 10000000B
+[  57]    0043: E6 80                                 OUT PORTA, AL
+[  58]    0045: EB 06                                 JMP SAFETY_CHECK
+[  59]        :                                       
+[  60]    0047:                                       LED_RED:
+[  61]    0047: E4 80                                 IN AL, PORTA
+[  62]    0049: 0C 20                                 OR AL, 00100000B
+[  63]    004B: E6 80                                 OUT PORTA, AL
+[  64]        :                                       
+[  65]    004D:                                       SAFETY_CHECK:
+[  66]    004D: E8 2B 00                              CALL SAFETY
+[  67]    0050: 3C 00                                 CMP AL, 0
+[  68]    0052: 74 08                                 JE SAFE
+[  69]    0054: E4 82                                 IN AL, PORTB
+[  70]    0056: 0C 40                                 OR AL, 01000000B
+[  71]    0058: E6 82                                 OUT PORTB, AL
+[  72]    005A: EB 06                                 JMP LOOP_EXIT
+[  73]        :                                       
+[  74]    005C:                                       SAFE:
+[  75]    005C: E4 82                                 IN AL, PORTB
+[  76]    005E: 24 BF                                 AND AL, 10111111B
+[  77]    0060: E6 82                                 OUT PORTB, AL
+[  78]        :                                       
+[  79]    0062:                                       LOOP_EXIT:
+[  80]    0062: E8 3C 00                              CALL DELAY
+[  81]    0065: EB A4                                 JMP MAIN_LOOP
+[  82]        :                                       
+[  83]    0067:                                       COUNT_DOOR PROC
+[  84]    0067: BA 82 00                              MOV DX, PORTB
+[  85]    006A: EC                                    IN AL, DX
+[  86]    006B: B3 00                                 MOV BL, 0
+[  87]    006D: B9 06 00                              MOV CX, 6
+[  88]    0070:                                       COUNT_LOOP:
+[  89]    0070: D0 E8                                 SHR AL, 1
+[  90]    0072: 73 02                                 JNC SKIP
+[  91]    0074: FE C3                                 INC BL
+[  92]    0076:                                       SKIP:
+[  93]    0076: E2 F8                                 LOOP COUNT_LOOP
+[  94]    0078: 8A C3                                 MOV AL, BL
+[  95]    007A: C3                                    RET
+[  96]        :                                       COUNT_DOOR ENDP
+[  97]        :                                       
+[  98]    007B:                                       SAFETY PROC
+[  99]    007B: BA 82 00                              MOV DX, PORTB
+[ 100]    007E: EC                                    IN AL, DX
+[ 101]    007F: D0 E8 D0 E8 D0 E8 D0 E8 D0 E8         SHR AL, 5
+[ 102]    0089: 72 03                                 JC NOT_SAFE_LABEL
+[ 103]    008B: B0 00                                 MOV AL, 0
+[ 104]    008D: C3                                    RET
+[ 105]    008E:                                       NOT_SAFE_LABEL:
+[ 106]    008E: B0 01                                 MOV AL, 1
+[ 107]    0090: C3                                    RET
+[ 108]        :                                       SAFETY ENDP
+[ 109]        :                                       
+[ 110]    0091:                                       TEMP_CHECK PROC
+[ 111]    0091: BA 84 00                              MOV DX, PORTC
+[ 112]    0094: EC                                    IN AL, DX
+[ 113]    0095: B6 33                                 MOV DH, 33H
+[ 114]    0097: 3A C6                                 CMP AL, DH
+[ 115]    0099: 7C 03                                 JL NO_TEMP_ALERT
+[ 116]    009B: B0 10                                 MOV AL, 00010000B
+[ 117]    009D: C3                                    RET
+[ 118]    009E:                                       NO_TEMP_ALERT:
+[ 119]    009E: B0 00                                 MOV AL, 00000000B
+[ 120]    00A0: C3                                    RET
+[ 121]        :                                       TEMP_CHECK ENDP
+[ 122]        :                                       
+[ 123]    00A1:                                       DELAY PROC
+[ 124]    00A1: B9 FF FF                              MOV CX, 0FFFFH
+[ 125]    00A4:                                       DELAY_LOOP:
+[ 126]    00A4: E2 FE                                 LOOP DELAY_LOOP
+[ 127]    00A6: C3                                    RET
+[ 128]        :                                       DELAY ENDP
+[ 129]        :                                       
+[ 130]        :                                       CODE ENDS
+[ 131]        :                                       END START
+[ 132]        :                                       
+[ 133]        :                                       
+ 
+===================================================================================================
+ 
+EXE HEADER - bytes from 0000 to 01FF inclusive.
+
+0000: 4D      -   exe signature (M)
+0001: 5A      -   exe signature (Z)
+0002: A7      -   bytes on last page (l.byte)
+0003: 00      -   bytes on last page (h.byte)
+0004: 02      -   512 byte pages in file (l.byte)
+0005: 00      -   512 byte pages in file (h.byte)
+0006: 01      -   relocations (l.byte)
+0007: 00      -   relocations (h.byte)
+0008: 20      -   paragraphs in header (l.byte)
+0009: 00      -   paragraphs in header (h.byte)
+000A: 00      -   minimum memory (l.byte)
+000B: 00      -   minimum memory (h.byte)
+000C: FF      -   maximum memory (l.byte)
+000D: FF      -   maximum memory (h.byte)
+000E: 00      -   SS - stack segment (l.byte)
+000F: 00      -   SS - stack segment (h.byte)
+0010: 00      -   SP - stack pointer (l.byte)
+0011: 00      -   SP - stack pointer (h.byte)
+0012: 98      -   check sum (l.byte)
+0013: 4F      -   check sum (h.byte)
+0014: 00      -   IP - instruction pointer (l.byte)
+0015: 00      -   IP - instruction pointer (h.byte)
+0016: 00      -   CS - code segment (l.byte)
+0017: 00      -   CS - code segment (h.byte)
+0018: 1E      -   relocation table adress (l.byte)
+0019: 00      -   relocation table adress (h.byte)
+001A: 00      -   overlay number (l.byte)
+001B: 00      -   overlay number (h.byte)
+001C: 01      -   signature (l.byte)
+001D: 00      -   signature (h.byte)
+001E: 01      -   relocation table - offset inside segment (l.byte)
+001F: 00      -   relocation table - offset inside segment (h.byte)
+0020: 00      -   relocation table - segment anchor (l.byte)
+0021: 00      -   relocation table - segment anchor (h.byte)
+0022 to 01FF  -   reserved relocation area  (00) 
+
+
+
+
+===================================================================================================
