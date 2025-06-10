@@ -1,8 +1,8 @@
 EMU8086 GENERATED LISTING. MACHINE CODE <- SOURCE.
  
-STEP3.exe -- emu8086 assembler version: 4.08  
+STEP4_1.exe -- emu8086 assembler version: 4.08  
  
-[ 6/10/2025  --  7:47:18 AM ] 
+[ 6/10/2025  --  11:37:01 AM ] 
  
 ===================================================================================================
 [LINE]     LOC: MACHINE CODE                          SOURCE
@@ -46,7 +46,7 @@ STEP3.exe -- emu8086 assembler version: 4.08
 [  36]    0016: EE                                    OUT DX, AL
 [  37]        :                                       
 [  38]    0017:                                       MAIN_LOOP:
-[  39]    0017: E8 AD 00                              CALL COUNT_TASK
+[  39]    0017: E8 D8 00                              CALL COUNT_DOOR
 [  40]    001A: 8A D8                                 MOV BL, AL
 [  41]        :                                       
 [  42]    001C: BA 00 00                              MOV DX, PORTA_1
@@ -90,7 +90,7 @@ STEP3.exe -- emu8086 assembler version: 4.08
 [  80]        :                                       
 [  81]        :                                       
 [  82]    0056:                                       TEMP_CHECK:
-[  83]    0056: E8 82 00                              CALL DELAY
+[  83]    0056: E8 AD 00                              CALL DELAY
 [  84]        :                                       
 [  85]    0059: BA 0C 00                              MOV DX, PORTC_2
 [  86]    005C: EC                                    IN AL, DX
@@ -141,62 +141,100 @@ STEP3.exe -- emu8086 assembler version: 4.08
 [ 131]    0099: BA 0A 00                              MOV DX, PORTB_2
 [ 132]    009C: EC                                    IN AL, DX
 [ 133]        :                                       
-[ 134]    009D: 3C 70                                 CMP AL,  70H
-[ 135]    009F: 72 1A                                 JB CRITICAL_ALERT
+[ 134]    009D: 3C 80                                 CMP AL,  80H
+[ 135]    009F: 72 18                                 JB CRITICAL_ALERT
 [ 136]        :                                       
-[ 137]    00A1: 3C 80                                 CMP AL,  80H
-[ 138]    00A3: 72 0A                                 JB LOW_ALERT
+[ 137]    00A1: 3C 99                                 CMP AL,  99H
+[ 138]    00A3: 72 09                                 JB LOW_ALERT
 [ 139]        :                                       
 [ 140]    00A5: BA 10 00                              MOV DX, PORTA_3
 [ 141]    00A8: EC                                    IN AL, DX
 [ 142]    00A9: 24 FC                                 AND AL, 11111100B
 [ 143]    00AB: EE                                    OUT DX, AL
-[ 144]    00AC: E9 68 FF                              JMP MAIN_LOOP
+[ 144]    00AC: EB 16                                 JMP POWER
 [ 145]        :                                       
-[ 146]    00AF:                                       LOW_ALERT:
-[ 147]    00AF: BA 10 00                              MOV DX, PORTA_3
-[ 148]    00B2: EC                                    IN AL, DX
-[ 149]    00B3: 24 FE                                 AND AL, 11111110B
-[ 150]    00B5: 0C 01                                 or al,00000001B
-[ 151]    00B7: EE                                    OUT DX, AL
+[ 146]    00AE:                                       LOW_ALERT:
+[ 147]    00AE: BA 10 00                              MOV DX, PORTA_3
+[ 148]    00B1: EC                                    IN AL, DX
+[ 149]    00B2: 24 FE                                 AND AL, 11111110B
+[ 150]    00B4: 0C 01                                 or al,00000001B
+[ 151]    00B6: EE                                    OUT DX, AL
 [ 152]        :                                       
-[ 153]    00B8: E9 5C FF                              JMP MAIN_LOOP
+[ 153]    00B7: EB 0B                                 JMP POWER
 [ 154]        :                                       
-[ 155]    00BB:                                       CRITICAL_ALERT:
-[ 156]    00BB: BA 10 00                              MOV DX, PORTA_3
-[ 157]    00BE: EC                                    IN AL, DX
-[ 158]    00BF: 24 FE                                 AND AL, 11111110B
-[ 159]    00C1: 0C 02                                 or al,00000010B
-[ 160]    00C3: EE                                    OUT DX, AL
+[ 155]    00B9:                                       CRITICAL_ALERT:
+[ 156]    00B9: BA 10 00                              MOV DX, PORTA_3
+[ 157]    00BC: EC                                    IN AL, DX
+[ 158]    00BD: 24 FE                                 AND AL, 11111110B
+[ 159]    00BF: 0C 02                                 or al,00000010B
+[ 160]    00C1: EE                                    OUT DX, AL
 [ 161]        :                                       
-[ 162]    00C4: E9 50 FF                              JMP MAIN_LOOP
+[ 162]    00C2: EB 00                                 JMP POWER
 [ 163]        :                                       
 [ 164]        :                                       
-[ 165]    00C7:                                       COUNT_TASK PROC
-[ 166]    00C7: BA 02 00                              MOV DX, PORTB_1
-[ 167]    00CA: EC                                    IN AL, DX
-[ 168]    00CB: B3 00                                 MOV BL, 0
-[ 169]    00CD: B9 06 00                              MOV CX, 6
-[ 170]    00D0:                                       COUNT_LOOP:
-[ 171]    00D0: D0 E8                                 SHR AL, 1
-[ 172]    00D2: 73 02                                 JNC SKIP
-[ 173]    00D4: FE C3                                 INC BL
-[ 174]    00D6:                                       SKIP:
-[ 175]    00D6: E2 F8                                 LOOP COUNT_LOOP
-[ 176]    00D8: 8A C3                                 MOV AL, BL
-[ 177]    00DA: C3                                    RET
-[ 178]        :                                       COUNT_TASK ENDP
-[ 179]        :                                       
-[ 180]    00DB:                                       DELAY PROC
-[ 181]    00DB: B9 FF FF                              MOV CX, 0FFFFH
-[ 182]    00DE:                                       DELAY_LOOP:
-[ 183]    00DE: E2 FE                                 LOOP DELAY_LOOP
-[ 184]    00E0: C3                                    RET
-[ 185]        :                                       DELAY ENDP
-[ 186]        :                                       
-[ 187]        :                                       CODE ENDS
-[ 188]        :                                       END START
+[ 165]    00C4:                                       POWER:
+[ 166]    00C4: BA 12 00                              MOV DX, PORTB_3
+[ 167]    00C7: EC                                    IN AL, DX
+[ 168]        :                                       
+[ 169]    00C8: 3C 03                                 CMP AL,  03H
+[ 170]    00CA: 72 0E                                 JB OFF_A
+[ 171]        :                                       
+[ 172]    00CC: 3C 10                                 CMP AL,  10H
+[ 173]    00CE: 72 16                                 JB OFF_T
+[ 174]        :                                       
+[ 175]    00D0: BA 10 00                              MOV DX, PORTA_3
+[ 176]    00D3: EC                                    IN AL, DX
+[ 177]    00D4: 24 3F                                 AND AL, 00111111B
+[ 178]    00D6: EE                                    OUT DX, AL
+[ 179]    00D7: E9 3D FF                              JMP MAIN_LOOP
+[ 180]        :                                       
+[ 181]    00DA:                                       OFF_A:
+[ 182]    00DA: BA 10 00                              MOV DX, PORTA_3
+[ 183]    00DD: EC                                    IN AL, DX
+[ 184]    00DE: 24 7F                                 AND AL, 01111111B
+[ 185]    00E0: 0C C0                                 OR AL,11000000B
+[ 186]    00E2: EE                                    OUT DX, AL
+[ 187]        :                                       
+[ 188]    00E3: E9 31 FF                              JMP MAIN_LOOP
 [ 189]        :                                       
+[ 190]    00E6:                                       OFF_T:
+[ 191]    00E6: BA 10 00                              MOV DX, PORTA_3
+[ 192]    00E9: EC                                    IN AL, DX
+[ 193]    00EA: 24 3F                                 AND AL, 00111111B
+[ 194]    00EC: 0C 40                                 or AL,01000000B
+[ 195]    00EE: EE                                    OUT DX, AL
+[ 196]        :                                       
+[ 197]    00EF: E9 25 FF                              JMP MAIN_LOOP
+[ 198]        :                                       
+[ 199]        :                                       
+[ 200]        :                                       
+[ 201]        :                                       
+[ 202]        :                                       
+[ 203]    00F2:                                       COUNT_DOOR PROC
+[ 204]    00F2: BA 02 00                              MOV DX, PORTB_1
+[ 205]    00F5: EC                                    IN AL, DX
+[ 206]    00F6: B3 00                                 MOV BL, 0
+[ 207]    00F8: B9 06 00                              MOV CX, 6
+[ 208]    00FB:                                       COUNT_LOOP:
+[ 209]    00FB: D0 E8                                 SHR AL, 1
+[ 210]    00FD: 73 02                                 JNC SKIP
+[ 211]    00FF: FE C3                                 INC BL
+[ 212]    0101:                                       SKIP:
+[ 213]    0101: E2 F8                                 LOOP COUNT_LOOP
+[ 214]    0103: 8A C3                                 MOV AL, BL
+[ 215]    0105: C3                                    RET
+[ 216]        :                                       COUNT_DOOR ENDP
+[ 217]        :                                       
+[ 218]    0106:                                       DELAY PROC
+[ 219]    0106: B9 FF FF                              MOV CX, 0FFFFH
+[ 220]    0109:                                       DELAY_LOOP:
+[ 221]    0109: E2 FE                                 LOOP DELAY_LOOP
+[ 222]    010B: C3                                    RET
+[ 223]        :                                       DELAY ENDP
+[ 224]        :                                       
+[ 225]        :                                       CODE ENDS
+[ 226]        :                                       END START
+[ 227]        :                                       
  
 ===================================================================================================
  
@@ -204,8 +242,8 @@ EXE HEADER - bytes from 0000 to 01FF inclusive.
 
 0000: 4D      -   exe signature (M)
 0001: 5A      -   exe signature (Z)
-0002: E1      -   bytes on last page (l.byte)
-0003: 00      -   bytes on last page (h.byte)
+0002: 0C      -   bytes on last page (l.byte)
+0003: 01      -   bytes on last page (h.byte)
 0004: 02      -   512 byte pages in file (l.byte)
 0005: 00      -   512 byte pages in file (h.byte)
 0006: 01      -   relocations (l.byte)
@@ -220,8 +258,8 @@ EXE HEADER - bytes from 0000 to 01FF inclusive.
 000F: 00      -   SS - stack segment (h.byte)
 0010: 00      -   SP - stack pointer (l.byte)
 0011: 00      -   SP - stack pointer (h.byte)
-0012: 39      -   check sum (l.byte)
-0013: FE      -   check sum (h.byte)
+0012: 56      -   check sum (l.byte)
+0013: 1C      -   check sum (h.byte)
 0014: 00      -   IP - instruction pointer (l.byte)
 0015: 00      -   IP - instruction pointer (h.byte)
 0016: 00      -   CS - code segment (l.byte)

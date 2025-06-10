@@ -1,4 +1,4 @@
-< THE SYMBOL TABLE >  STEP3.exe  --  emu8086 assembler version: 4.08 
+< THE SYMBOL TABLE >  STEP4_1.exe  --  emu8086 assembler version: 4.08 
 ===================================================================================================
 Name                     	Offset    	Size      	Type      	Segment   
 ===================================================================================================
@@ -16,14 +16,17 @@ MODE2_LED                	00083     	-1        	LABEL     	CODE
 MODE3_LED                	0008B     	-1        	LABEL     	CODE      
 MODE4_LED                	00093     	-1        	LABEL     	CODE      
 HEARTBEAT                	00099     	-1        	LABEL     	CODE      
-LOW_ALERT                	000AF     	-1        	LABEL     	CODE      
-CRITICAL_ALERT           	000BB     	-1        	LABEL     	CODE      
-COUNT_TASK               	000C7     	-1        	NEAR      	CODE      
-COUNT_LOOP               	000D0     	-1        	LABEL     	CODE      
-SKIP                     	000D6     	-1        	LABEL     	CODE      
-DELAY                    	000DB     	-1        	NEAR      	CODE      
-DELAY_LOOP               	000DE     	-1        	LABEL     	CODE      
+LOW_ALERT                	000AE     	-1        	LABEL     	CODE      
+CRITICAL_ALERT           	000B9     	-1        	LABEL     	CODE      
+POWER                    	000C4     	-1        	LABEL     	CODE      
+OFF_A                    	000DA     	-1        	LABEL     	CODE      
+OFF_T                    	000E6     	-1        	LABEL     	CODE      
+COUNT_DOOR               	000F2     	-1        	NEAR      	CODE      
+COUNT_LOOP               	000FB     	-1        	LABEL     	CODE      
+SKIP                     	00101     	-1        	LABEL     	CODE      
+DELAY                    	00106     	-1        	NEAR      	CODE      
+DELAY_LOOP               	00109     	-1        	LABEL     	CODE      
 ===================================================================================================
-[ 6/10/2025  --  7:47:18 AM ] 
+[ 6/10/2025  --  11:37:01 AM ] 
 < END >
  
