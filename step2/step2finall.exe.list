@@ -2,7 +2,7 @@ EMU8086 GENERATED LISTING. MACHINE CODE <- SOURCE.
  
 step2finall.exe -- emu8086 assembler version: 4.08  
  
-[ 6/9/2025  --  4:59:02 PM ] 
+[ 6/9/2025  --  8:14:19 PM ] 
  
 ===================================================================================================
 [LINE]     LOC: MACHINE CODE                          SOURCE
@@ -36,7 +36,7 @@ step2finall.exe -- emu8086 assembler version: 4.08
 [  26]    000E: B0 8A                                 MOV AL, 10001010B
 [  27]    0010: EE                                    OUT DX, AL
 [  28]    0011:                                       MAIN_LOOP:
-[  29]    0011: E8 88 00                              CALL COUNT_DOOR
+[  29]    0011: E8 88 00                              CALL COUNT_TASK
 [  30]    0014: 8A D8                                 MOV BL, AL
 [  31]        :                                       
 [  32]    0016: BA 10 00                              MOV DX, PORTA_1
@@ -91,15 +91,15 @@ step2finall.exe -- emu8086 assembler version: 4.08
 [  81]    005C: EC                                    IN AL, DX
 [  82]        :                                       
 [  83]        :                                       
-[  84]    005D: 3C 0E                                 CMP AL, 14
+[  84]    005D: 3C 11                                 CMP AL, 17
 [  85]    005F: 76 12                                 JBE MODE0_LED
-[  86]    0061: 3C 0F                                 CMP AL, 15
+[  86]    0061: 3C 12                                 CMP AL, 18
 [  87]    0063: 74 16                                 JE MODE1_LED
-[  88]    0065: 3C 10                                 CMP AL, 16
+[  88]    0065: 3C 13                                 CMP AL, 19
 [  89]    0067: 74 1A                                 JE MODE2_LED
-[  90]    0069: 3C 11                                 CMP AL, 17
+[  90]    0069: 3C 14                                 CMP AL, 20
 [  91]    006B: 74 1E                                 JE MODE3_LED
-[  92]    006D: 3C 12                                 CMP AL, 18
+[  92]    006D: 3C 15                                 CMP AL, 21
 [  93]    006F: 73 22                                 JAE MODE4_LED
 [  94]    0071: EB 26                                 JMP SKIP_LED
 [  95]        :                                       
@@ -136,7 +136,7 @@ step2finall.exe -- emu8086 assembler version: 4.08
 [ 126]    0099: E9 75 FF                              JMP MAIN_LOOP
 [ 127]        :                                       
 [ 128]        :                                       
-[ 129]    009C:                                       COUNT_DOOR PROC
+[ 129]    009C:                                       COUNT_TASK PROC
 [ 130]    009C: BA 12 00                              MOV DX, PORTB_1
 [ 131]    009F: EC                                    IN AL, DX
 [ 132]    00A0: B3 00                                 MOV BL, 0
@@ -149,7 +149,7 @@ step2finall.exe -- emu8086 assembler version: 4.08
 [ 139]    00AB: E2 F8                                 LOOP COUNT_LOOP
 [ 140]    00AD: 8A C3                                 MOV AL, BL
 [ 141]    00AF: C3                                    RET
-[ 142]        :                                       COUNT_DOOR ENDP
+[ 142]        :                                       COUNT_TASK ENDP
 [ 143]        :                                       
 [ 144]    00B0:                                       DELAY PROC
 [ 145]    00B0: B9 FF FF                              MOV CX, 0FFFFH
@@ -185,7 +185,7 @@ EXE HEADER - bytes from 0000 to 01FF inclusive.
 000F: 00      -   SS - stack segment (h.byte)
 0010: 00      -   SP - stack pointer (l.byte)
 0011: 00      -   SP - stack pointer (h.byte)
-0012: 76      -   check sum (l.byte)
+0012: 67      -   check sum (l.byte)
 0013: 84      -   check sum (h.byte)
 0014: 00      -   IP - instruction pointer (l.byte)
 0015: 00      -   IP - instruction pointer (h.byte)

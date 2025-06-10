@@ -16,12 +16,12 @@ MODE2_LED                	00083     	-1        	LABEL     	CODE
 MODE3_LED                	0008B     	-1        	LABEL     	CODE      
 MODE4_LED                	00093     	-1        	LABEL     	CODE      
 SKIP_LED                 	00099     	-1        	LABEL     	CODE      
-COUNT_DOOR               	0009C     	-1        	NEAR      	CODE      
+COUNT_TASK               	0009C     	-1        	NEAR      	CODE      
 COUNT_LOOP               	000A5     	-1        	LABEL     	CODE      
 SKIP                     	000AB     	-1        	LABEL     	CODE      
 DELAY                    	000B0     	-1        	NEAR      	CODE      
 DELAY_LOOP               	000B3     	-1        	LABEL     	CODE      
 ===================================================================================================
-[ 6/9/2025  --  4:59:02 PM ] 
+[ 6/9/2025  --  8:14:19 PM ] 
 < END >
  

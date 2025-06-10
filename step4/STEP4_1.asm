@@ -36,7 +36,7 @@ START:
     OUT DX, AL
     
 MAIN_LOOP:
-    CALL COUNT_TASK
+    CALL COUNT_DOOR
     MOV BL, AL
 
     MOV DX, PORTA_1
@@ -141,7 +141,7 @@ HEARTBEAT:
     IN AL, DX
     AND AL, 11111100B
     OUT DX, AL
-    JMP MAIN_LOOP
+    JMP POWER
                                     
 LOW_ALERT:
     MOV DX, PORTA_3
@@ -150,7 +150,7 @@ LOW_ALERT:
     or al,00000001B
     OUT DX, AL
 
-    JMP MAIN_LOOP 
+    JMP POWER 
                                     
 CRITICAL_ALERT:
     MOV DX, PORTA_3
@@ -159,10 +159,48 @@ CRITICAL_ALERT:
     or al,00000010B
     OUT DX, AL
 
-    JMP MAIN_LOOP
+    JMP POWER
+    
+    
+POWER:      
+    MOV DX, PORTB_3  
+    IN AL, DX
 
+    CMP AL,  03H
+    JB OFF_A            
+            
+    CMP AL,  10H
+    JB OFF_T            
+            
+    MOV DX, PORTA_3 
+    IN AL, DX
+    AND AL, 00111111B
+    OUT DX, AL
+    JMP MAIN_LOOP     
+            
+OFF_A:
+    MOV DX, PORTA_3
+    IN AL, DX
+    AND AL, 01111111B
+    OR AL,11000000B
+    OUT DX, AL
+
+    JMP MAIN_LOOP 
+                                    
+OFF_T:
+    MOV DX, PORTA_3
+    IN AL, DX
+    AND AL, 00111111B
+    or AL,01000000B
+    OUT DX, AL
+
+    JMP MAIN_LOOP
+    
+    
+    
+    
  
-COUNT_TASK PROC
+COUNT_DOOR PROC
     MOV DX, PORTB_1
     IN AL, DX
     MOV BL, 0
@@ -175,7 +213,7 @@ SKIP:
     LOOP COUNT_LOOP
     MOV AL, BL
     RET
-COUNT_TASK ENDP
+COUNT_DOOR ENDP
 
 DELAY PROC
     MOV CX, 0FFFFH
