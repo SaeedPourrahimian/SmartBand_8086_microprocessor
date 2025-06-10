@@ -1,0 +1,29 @@
+< THE SYMBOL TABLE >  STEP3.exe  --  emu8086 assembler version: 4.08 
+===================================================================================================
+Name                     	Offset    	Size      	Type      	Segment   
+===================================================================================================
+DATA                     	00000     	-5        	SEGMENT   	(ITSELF)  
+CODE                     	00000     	-5        	SEGMENT   	(ITSELF)  
+START                    	00000     	-1        	LABEL     	CODE      
+MAIN_LOOP                	00017     	-1        	LABEL     	CODE      
+SET_GREEN                	00037     	-1        	LABEL     	CODE      
+SET_YELLOW               	00042     	-1        	LABEL     	CODE      
+SET_RED                  	0004D     	-1        	LABEL     	CODE      
+TEMP_CHECK               	00056     	-1        	LABEL     	CODE      
+MODE0_LED                	00073     	-1        	LABEL     	CODE      
+MODE1_LED                	0007B     	-1        	LABEL     	CODE      
+MODE2_LED                	00083     	-1        	LABEL     	CODE      
+MODE3_LED                	0008B     	-1        	LABEL     	CODE      
+MODE4_LED                	00093     	-1        	LABEL     	CODE      
+HEARTBEAT                	00099     	-1        	LABEL     	CODE      
+LOW_ALERT                	000AF     	-1        	LABEL     	CODE      
+CRITICAL_ALERT           	000BB     	-1        	LABEL     	CODE      
+COUNT_TASK               	000C7     	-1        	NEAR      	CODE      
+COUNT_LOOP               	000D0     	-1        	LABEL     	CODE      
+SKIP                     	000D6     	-1        	LABEL     	CODE      
+DELAY                    	000DB     	-1        	NEAR      	CODE      
+DELAY_LOOP               	000DE     	-1        	LABEL     	CODE      
+===================================================================================================
+[ 6/10/2025  --  7:47:18 AM ] 
+< END >
+ 
